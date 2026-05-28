@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CREA - Conformidad de Recursos Educativos Abiertos</title>
+  <meta name="description" content="">
+  <meta name="DC.creator" content="Gema Santos Hermosa">
+  <meta name="DC.creator" content="Rubén Alcaraz Martínez">
+  <meta name="DC.publisher" content="Universitat de Barcelona">
+  <meta name="DC.description" content="Herramienta web para evaluar la conformidad formal de recursos educativos abiertos mediante criterios sobre licencia, acceso, formato, editabilidad, metadatos, accesibilidad, publicación y preservación.">
+  <meta name="DC.subject" content="recursos educativos abiertos">
+  <meta name="DC.subject" content="REA">
+  <meta name="DC.subject" content="OER">
+  <meta name="DC.subject" content="licencias abiertas">
+  <meta name="DC.subject" content="accesibilidad">
+  <meta name="DC.subject" content="metadatos educativos">
+  <meta name="DC.type" content="InteractiveResource">
+  <meta name="DC.format" content="text/html">
+  <meta name="DC.language" content="es">
+  <meta name="DC.rights" content="Código fuente bajo GNU GPLv3; modelo, textos y documentación bajo Creative Commons Reconocimiento 4.0 Internacional.">
+  <meta name="DCTERMS.license" content="https://www.gnu.org/licenses/gpl-3.0.html">
+  <meta name="DCTERMS.license" content="https://creativecommons.org/licenses/by/4.0/">
+  <meta name="DCTERMS.created" content="2026">
+  <meta name="DCTERMS.modified" content="2026">
+  <meta name="DCTERMS.accessRights" content="Acceso abierto">
+  <meta name="DCTERMS.audience" content="docentes, bibliotecarios, documentalistas, diseñadores instruccionales, responsables de repositorios educativos">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Mostrar navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="mainNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#formulario">Formulario</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resultado">Resultado</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sello">Sello</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pesos">Pesos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reglas">Reglas</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-dark text-white py-5">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+          <span class="badge text-bg-light mb-3">Versión 1.0.0-beta.5</span>
+          <h1 class="display-5 fw-bold">CREA - Conformidad de Recursos Educativos Abiertos</h1>
+          <p class="lead mb-0">Herramienta de verificación formal de recursos educativos abiertos</p>
+        </div>
+        <div class="col-lg-4">
+          <div class="card text-bg-light">
+            <div class="card-body">
+              <h2 class="h5">Modelo de evaluación</h2>
+              <p class="mb-3">La herramienta revisa criterios formales de conformidad REA (licencia, acceso, formato, editabilidad, metadatos, accesibilidad y publicación), pero no evalúa la calidad científica, pedagógica o disciplinar del contenido. Sus resultados orientan la revisión, aunque no sustituyen la evaluación manual.</p>
+              <a class="btn btn-dark w-100" href="#formulario">Empezar evaluación</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container my-5">
+    <div class="row g-4">
+      <aside class="col-lg-4 order-lg-2">
+        <div class="position-sticky top-0 pt-5">
+          <div class="card border-dark mb-4">
+            <div class="card-header text-bg-dark">Estado de la evaluación</div>
+            <div class="card-body">
+              <div id="quickStatus" aria-live="polite">
+                <p class="text-body-secondary mb-0">Todavía no se ha validado el recurso.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-dark mb-4">
+            <div class="card-body">
+              <button type="button" id="btnValidate" class="btn btn-dark btn-lg w-100">Validar recurso</button>
+            </div>
+          </div>
+
+          <div id="liveAlert" aria-live="assertive"></div>
+        </div>
+      </aside>
+
+      <div class="col-lg-8 order-lg-1">
+        <section id="formulario" class="mb-5">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+            <div>
+              <h2 class="h3 mb-1">Formulario</h2>
+            </div>
+            <button type="button" class="btn btn-outline-secondary" id="btnReset">Reiniciar</button>
+          </div>
+
+          <form id="oerForm" novalidate>
+            <div class="accordion" id="questionsAccordion"></div>
+          </form>
+        </section>
+
+        <section id="resultado" class="mb-5">
+          <h2 class="h3 mb-3">Resultado</h2>
+          <div id="resultsBox" class="card">
+            <div class="card-body">
+              <p class="text-body-secondary mb-0">Completa el formulario y pulsa “Validar recurso”.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="sello" class="mb-5">
+          <h2 class="h3 mb-3">Sello generado</h2>
+          <div class="card mb-4">
+            <div class="card-header">Vista previa</div>
+            <div class="card-body">
+              <div id="badgePreview" class="badge-preview border rounded p-3 text-center bg-body-tertiary overflow-hidden">
+                <p class="text-body-secondary mb-0">El sello aparecerá después de validar.</p>
+              </div>
+            </div>
+            <div class="card-footer d-flex flex-wrap gap-2">
+              <button type="button" id="btnDownloadSvg" class="btn btn-outline-dark" disabled>Descargar SVG</button>
+              <button type="button" id="btnDownloadPng" class="btn btn-outline-dark" disabled>Descargar PNG</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Código embed</div>
+            <div class="card-body">
+              <label for="embedCode" class="form-label">HTML para insertar el sello</label>
+              <textarea id="embedCode" class="form-control font-monospace" rows="8" readonly></textarea>
+            </div>
+            <div class="card-footer">
+              <button type="button" id="btnCopyEmbed" class="btn btn-outline-secondary" disabled>Copiar embed</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="pesos" class="mb-5">
+          <h2 class="h3 mb-3">Ponderación aplicada</h2>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+              <caption>Pesos de la versión 1.0. Cada categoría se normaliza internamente y después se pondera.</caption>
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Peso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Identificación del recurso</td><td>10 %</td></tr>
+                <tr><td>Acceso y licencia de uso</td><td>25 %</td></tr>
+                <tr><td>Formato y reutilización</td><td>20 %</td></tr>
+                <tr><td>Metadatos</td><td>15 %</td></tr>
+                <tr><td>Accesibilidad</td><td>20 %</td></tr>
+                <tr><td>Publicación y preservación</td><td>10 %</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="reglas" class="mb-5">
+          <h2 class="h3 mb-3">Reglas excluyentes y avisos de coherencia</h2>
+          <div class="list-group">
+            <div class="list-group-item">
+              <h3 class="h6 mb-1">Acceso no gratuito</h3>
+              <p class="mb-0">Si el recurso no es gratuito, no obtiene conformidad como REA.</p>
+            </div>
+            <div class="list-group-item">
+              <h3 class="h6 mb-1">Licencia cerrada, inexistente o no verificable</h3>
+              <p class="mb-0">Todos los derechos reservados y la ausencia de licencia excluyen la conformidad. Las licencias institucionales, educativas o propias solo se aceptan automáticamente si permiten explícitamente las 5R; si no, requieren revisión manual.</p>
+            </div>
+            <div class="list-group-item">
+              <h3 class="h6 mb-1">Cláusula ND</h3>
+              <p class="mb-0">Las licencias con ND impiden adaptación, revisión y remezcla.</p>
+            </div>
+            <div class="list-group-item">
+              <h3 class="h6 mb-1">5R no permitidas o bloqueadas</h3>
+              <p class="mb-0">Si el recurso no permite ejercer las 5R por licencia, cláusula ND, ausencia de licencia o bloqueo técnico severo, no alcanza conformidad REA.</p>
+            </div>
+            <div class="list-group-item">
+              <h3 class="h6 mb-1">DRM o bloqueo técnico severo</h3>
+              <p class="mb-0">Las restricciones técnicas severas impiden ejercer los derechos de reutilización.</p>
+            </div>
+            <div class="list-group-item">
+              <h3 class="h6 mb-1">Coherencia entre licencia, 5R y formato</h3>
+              <p class="mb-0">La herramienta avisa y, cuando procede, ajusta respuestas incompatibles: licencias NC/ND con 5R sin restricciones, ausencia de descarga con 5R plenas, formato cerrado, dependencia de plataforma o ausencia de editabilidad con reutilización técnica alta.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal fade" id="exclusionModal" tabindex="-1" aria-labelledby="exclusionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-danger">
+        <div class="modal-header text-bg-danger">
+          <h2 class="modal-title h5" id="exclusionModalLabel">El recurso no alcanza conformidad automática</h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p>La respuesta seleccionada activa una condición excluyente o impide verificar automáticamente la conformidad REA en la versión 1.0.0-beta.5.</p>
+          <div id="modalExclusionContent"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Revisar respuesta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="coherenceModal" tabindex="-1" aria-labelledby="coherenceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-warning">
+        <div class="modal-header text-bg-warning">
+          <h2 class="modal-title h5" id="coherenceModalLabel">Aviso de coherencia entre respuestas</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p>La combinación de respuestas seleccionada puede producir una evaluación incoherente o requiere una interpretación más precisa.</p>
+          <div id="modalCoherenceContent"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Revisar respuestas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-top py-4 bg-body-tertiary">
+    <div class="container">
+      <p class="mb-1 text-body-secondary">Idea: Rubén Alcaraz Martínez y Gema Santos Hermosa, Universitat de Barcelona, 2026- .</p>
+      <p class="mb-1 text-body-secondary">Desarrollo: Rubén Alcaraz Martínez.</p>
+      <p class="mb-3 text-body-secondary">Licencia: código fuente bajo GNU GPLv3; modelo, textos y documentación bajo Creative Commons Reconocimiento 4.0 Internacional (CC BY 4.0).</p>
+      <div class="d-flex flex-wrap gap-3 align-items-center">
+        <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license">
+          <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" class="img-fluid" width="136" height="68" alt="GNU GPLv3">
+        </a>
+        <a href="https://creativecommons.org/licenses/by/4.0/deed.es" rel="license">
+          <img src="https://licensebuttons.net/l/by/4.0/88x31.png" class="img-fluid" width="88" height="31" alt="Creative Commons Reconocimiento 4.0 Internacional">
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const APP_VERSION = "1.0.0-beta.5";
+
+    const CATEGORIES = [
+      { id: "identificacion", title: "Identificación del recurso", weight: 10 },
+      { id: "accesoLicencia", title: "Acceso y licencia de uso", weight: 25 },
+      { id: "formato", title: "Formato y reutilización", weight: 20 },
+      { id: "metadatos", title: "Metadatos", weight: 15 },
+      { id: "accesibilidad", title: "Accesibilidad", weight: 20 },
+      { id: "publicacion", title: "Publicación y preservación", weight: 10 }
+    ];
+
+    const QUESTIONS = [
+      {
+        id: "q_id_rea", category: "identificacion",
+        label: "¿El recurso se identifica claramente como un REA?",
+        max: 2,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 2], ["parcial", "Parcialmente", 1], ["no", "No", 0]]
+      },
+
+      {
+        id: "q_tipo", category: "identificacion",
+        label: "¿Se identifica el tipo de recurso? (p. ej., guía docente, vídeo, actividad)",
+        max: 2,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 2], ["parcial", "Parcialmente", 1], ["no", "No", 0]]
+      },
+      {
+        id: "q_nivel", category: "identificacion",
+        label: "¿Se identifica el nivel académico?",
+        max: 2,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 2], ["parcial", "Parcialmente", 1], ["no", "No", 0]]
+      },
+      {
+        id: "q_version_fecha", category: "identificacion",
+        label: "¿Se indica claramente la edición, versión y fecha de publicación, actualización o revisión?",
+        max: 2,
+        options: [["", "Selecciona una opción", 0], ["completo", "Sí, de forma completa", 2], ["parcial", "Parcialmente", 1], ["no", "No", 0]]
+      },
+      {
+        id: "q_origen_recurso", category: "identificacion",
+        label: "¿Se indica si el recurso es original, adaptación, traducción o remezcla de otro recurso?",
+        max: 2,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 2], ["parcial", "Parcialmente", 1], ["no", "No", 0], ["no_determinable", "No se puede determinar", 0]]
+      },
+
+      {
+        id: "q_gratuito", category: "accesoLicencia",
+        label: "¿El acceso al recurso es gratuito?",
+        max: 5, excludes: ["no"],
+        options: [
+          ["", "Selecciona una opción", 0], ["si", "Sí", 5], ["parcial", "Parcialmente", 2],
+          ["no", "No", 0, "Un recurso con acceso no gratuito no obtiene conformidad formal como REA."]
+        ]
+      },
+      {
+        id: "q_datos", category: "accesoLicencia",
+        label: "¿El recurso exige registro o recogida de datos personales?",
+        max: 3,
+        options: [["", "Selecciona una opción", 0], ["no", "No", 3], ["opcional", "Sí, opcional", 2], ["obligatorio", "Sí, obligatorio", 0]]
+      },
+      {
+        id: "q_descarga", category: "accesoLicencia",
+        label: "¿El recurso puede descargarse o conservarse localmente?",
+        max: 3,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 3], ["parcial", "Parcialmente", 1], ["no", "No", 0]]
+      },
+
+      {
+        id: "q_licencia", category: "accesoLicencia",
+        label: "¿Bajo qué licencia se distribuye el recurso?",
+        max: 5,
+        excludes: ["cc_by_nd", "cc_by_nc_nd", "todos_derechos", "sin_licencia"],
+        requiresReview: ["institucional_no_verificable", "educativa_no_verificable", "otra_no_verificable"],
+        options: [
+          ["", "Selecciona una opción", 0],
+          ["dominio_publico", "Dominio público", 5],
+          ["cc0", "CC0", 5],
+          ["cc_by", "CC BY", 5],
+          ["cc_by_sa", "CC BY-SA", 5],
+          ["cc_by_nc", "CC BY-NC", 3],
+          ["cc_by_nc_sa", "CC BY-NC-SA", 3],
+          ["cc_by_nd", "CC BY-ND", 0, "La cláusula ND impide obras derivadas y bloquea la adaptación, revisión o remezcla del recurso."],
+          ["cc_by_nc_nd", "CC BY-NC-ND", 0, "La cláusula ND impide obras derivadas y bloquea la adaptación, revisión o remezcla del recurso."],
+          ["gfdl", "GNU Free Documentation License, sin secciones invariantes", 4],
+          ["gplv3", "GNU GPLv3, para software o código", 4],
+          ["mit_apache_bsd", "MIT / Apache-2.0 / BSD, para software o código", 5],
+          ["institucional_abierta", "Licencia institucional propia que permite explícitamente las 5R", 3],
+          ["educativa_abierta", "Licencia educativa específica que permite explícitamente las 5R", 3],
+          ["otra_abierta", "Otra licencia abierta que permite explícitamente las 5R", 3],
+          ["institucional_no_verificable", "Licencia institucional propia no verificable", 0, "Una licencia propia solo puede aceptarse automáticamente si sus términos permiten de forma explícita las 5R."],
+          ["educativa_no_verificable", "Licencia educativa específica no verificable", 0, "Una licencia educativa específica solo puede aceptarse automáticamente si sus términos permiten de forma explícita las 5R."],
+          ["todos_derechos", "Todos los derechos reservados", 0, "Un recurso con todos los derechos reservados no concede permisos abiertos suficientes para ser REA."],
+          ["sin_licencia", "Sin licencia indicada", 0, "Sin licencia abierta o dominio público no puede verificarse la conformidad formal como REA."],
+          ["otra_no_verificable", "Otra licencia no verificable", 0, "No puede confirmarse la conformidad REA sin revisar los términos de la licencia."]
+        ]
+      },
+      {
+        id: "q_licencia_visible", category: "accesoLicencia",
+        label: "¿La licencia está indicada de forma visible junto al recurso?",
+        max: 3,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 3], ["parcial", "Parcialmente", 1], ["no", "No", 0]]
+      },
+
+      {
+        id: "q_5r_grado", category: "accesoLicencia",
+        label: "¿Qué grado de ejercicio de las 5R permite el recurso? (retener, reutilizar, revisar, remezclar y redistribuir)",
+        max: 8, excludes: ["algunas_nd", "no", "cerrada", "drm"], requiresReview: ["no_determinable"],
+        options: [
+          ["", "Selecciona una opción", 0],
+          ["todas_sin_restriccion", "Permite las 5R sin restricciones relevantes", 8],
+          ["todas_nc", "Permite las 5R con restricción NC", 5],
+          ["algunas_barreras_tecnicas", "Permite legalmente las 5R, pero existen barreras técnicas", 3],
+          ["algunas_nd", "Permite algunas 5R, pero no revisión/remezcla por ND", 0, "La cláusula ND impide revisar, adaptar y remezclar el recurso. En esta versión es una condición excluyente."],
+          ["cerrada", "No las permite por licencia cerrada o ausencia de licencia", 0, "Sin licencia abierta o con todos los derechos reservados no puede verificarse el ejercicio de las 5R."],
+          ["drm", "No las permite por DRM o bloqueo técnico severo", 0, "Las restricciones técnicas severas impiden ejercer derechos de reutilización aunque la licencia sea abierta."],
+          ["no", "No permite las 5R", 0, "Si no permite las 5R, el recurso no alcanza conformidad formal como REA."],
+          ["no_determinable", "No se puede determinar", 0]
+        ]
+      },
+
+      {
+        id: "q_formato_abierto", category: "formato",
+        label: "¿El recurso está disponible en un formato abierto?",
+        max: 5,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 5], ["parcial", "Parcialmente", 2], ["no", "No", 0]]
+      },
+      {
+        id: "q_editable", category: "formato",
+        label: "¿El recurso es editable?",
+        max: 5,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 5], ["parcial", "Parcialmente", 2], ["no", "No", 0]]
+      },
+      {
+        id: "q_partes", category: "formato",
+        label: "¿El recurso está organizado en partes reutilizables?",
+        max: 5,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 5], ["parcial", "Parcialmente", 2], ["no", "No", 0]]
+      },
+      {
+        id: "q_independencia_plataforma", category: "formato",
+        label: "¿El recurso puede usarse sin depender de una plataforma concreta?",
+        max: 5,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 5], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["no_determinable", "No se puede determinar", 0]]
+      },
+
+      {
+        id: "q_metadatos_basicos", category: "metadatos",
+        type: "multiselect",
+        label: "¿Qué metadatos descriptivos básicos incluye?",
+        max: 8,
+        options: [
+          ["titulo", "Título", 1], ["autoria", "Autoría", 1], ["fecha", "Fecha", 1], ["idioma", "Idioma", 1],
+          ["descripcion", "Descripción", 1], ["palabras_clave", "Palabras clave / Materias", 1], ["tipo", "Tipo", 1], ["formato_licencia", "Licencia", 1]
+        ]
+      },
+      {
+        id: "q_metadatos_educativos", category: "metadatos",
+        type: "multiselect",
+        label: "¿Qué metadatos educativos incluye?",
+        max: 7,
+        options: [
+          ["nivel", "Nivel", 1], ["destinatarios", "Destinatarios", 1], ["objetivos", "Objetivos", 1],
+          ["competencias", "Competencias", 1], ["tiempo", "Tiempo estimado", 1], ["contexto", "Contexto de uso", 1], ["requisitos", "Requisitos previos", 1]
+        ]
+      },
+      {
+        id: "q_idioma_principal", category: "metadatos",
+        label: "¿El idioma principal del recurso está declarado correctamente?",
+        max: 2,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 2], ["parcial", "Parcialmente", 1], ["no", "No", 0], ["no_determinable", "No se puede determinar", 0]]
+      },
+
+      {
+        id: "q_estructura", category: "accesibilidad",
+        label: "¿El recurso cuenta con una estructura visual y semántica mediante títulos, subtítulos u otros elementos estructurales?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_alt", category: "accesibilidad",
+        label: "¿El contenido no textual cuenta con una alternativa de texto?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_av", category: "accesibilidad",
+        label: "¿Los materiales audiovisuales cuentan con subtítulos, transcripciones o alternativas equivalentes?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_color", category: "accesibilidad",
+        label: "¿El recurso evita depender solo del color, la forma o la posición para transmitir información?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0]]
+      },
+      {
+        id: "q_contraste", category: "accesibilidad",
+        label: "¿El contraste entre el texto y el fondo y entre elementos no textuales es suficiente?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["no_comprobado", "No comprobado", 0]]
+      },
+      {
+        id: "q_ayudas", category: "accesibilidad",
+        label: "¿El recurso es compatible con ayudas técnicas, incluidas las que permiten personalizar los estilos del documento?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["no_comprobado", "No comprobado", 0]]
+      },
+
+      {
+        id: "q_plataforma", category: "publicacion",
+        label: "¿Está publicado en un repositorio o plataforma estable?",
+        max: 4,
+        options: [
+          ["", "Selecciona una opción", 0], ["repositorio", "Sí, repositorio", 4],
+          ["plataforma_estable", "Sí, plataforma estable", 3], ["web", "Web institucional o personal", 2],
+          ["plataforma_externa", "Plataforma externa", 1], ["cerrada", "Campus o entorno cerrado", 0], ["no", "No", 0]
+        ]
+      },
+      {
+        id: "q_url", category: "publicacion",
+        label: "¿El recurso cuenta con una URL estable o identificador persistente?",
+        max: 4,
+        options: [
+          ["", "Selecciona una opción", 0], ["doi", "DOI", 4], ["handle", "Handle", 4],
+          ["uri", "URI permanente", 4], ["url_estable", "URL estable", 3],
+          ["url_no_persistente", "URL no persistente", 1], ["no", "No", 0]
+        ]
+      }
+    ];
+
+    const state = { lastResult: null, lastSvg: "", lastExclusionKey: "", lastCoherenceKey: "" };
+
+    function normaliseOptions(question) {
+      question.options = question.options.map(opt => ({
+        value: opt[0],
+        label: opt[1],
+        score: opt[2],
+        reason: opt[3] || ""
+      }));
+      return question;
+    }
+    QUESTIONS.forEach(normaliseOptions);
+
+    function renderWeightSummary() {
+      const box = document.getElementById("weightSummary");
+      if (!box) return;
+      box.innerHTML = `
+        <ul class="list-group list-group-flush">
+          ${CATEGORIES.map(cat => `<li class="list-group-item d-flex justify-content-between px-0"><span>${cat.title}</span><strong>${cat.weight}%</strong></li>`).join("")}
+        </ul>
+      `;
+    }
+
+    function renderQuestions() {
+      const acc = document.getElementById("questionsAccordion");
+      acc.innerHTML = "";
+
+      CATEGORIES.forEach((category, index) => {
+        const item = document.createElement("div");
+        item.className = "accordion-item";
+
+        const headerId = `heading-${category.id}`;
+        const collapseId = `collapse-${category.id}`;
+        const show = index === 0 ? " show" : "";
+        const collapsed = index === 0 ? "" : " collapsed";
+
+        item.innerHTML = `
+          <h3 class="accordion-header" id="${headerId}">
+            <button class="accordion-button text-bg-dark${collapsed}" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${index === 0 ? "true" : "false"}" aria-controls="${collapseId}">
+              ${category.title} <span class="badge text-bg-light ms-2">${category.weight}%</span>
+            </button>
+          </h3>
+          <div id="${collapseId}" class="accordion-collapse collapse${show}" aria-labelledby="${headerId}" data-bs-parent="#questionsAccordion">
+            <div class="accordion-body">
+              <div class="row g-3" id="row-${category.id}"></div>
+            </div>
+          </div>
+        `;
+        acc.appendChild(item);
+
+        const row = item.querySelector(`#row-${category.id}`);
+        QUESTIONS.filter(q => q.category === category.id).forEach(q => {
+          const col = document.createElement("div");
+          col.className = "col-md-6";
+          col.appendChild(renderQuestion(q));
+          row.appendChild(col);
+        });
+      });
+    }
+
+    function renderQuestion(q) {
+      const wrapper = document.createElement("div");
+      const label = document.createElement("label");
+      label.className = "form-label fw-semibold";
+      label.setAttribute("for", q.id);
+      label.textContent = q.label;
+      wrapper.appendChild(label);
+
+      const select = document.createElement("select");
+      select.className = "form-select";
+      select.id = q.id;
+      select.name = q.id;
+      if (q.type === "multiselect") {
+        select.multiple = true;
+        select.size = Math.min(6, q.options.length);
+      }
+
+      q.options.forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt.value;
+        option.textContent = opt.label;
+        select.appendChild(option);
+      });
+
+      select.addEventListener("change", () => checkImmediateWarnings(q));
+      wrapper.appendChild(select);
+
+      if (q.type === "multiselect") {
+        const help = document.createElement("div");
+        help.className = "form-text";
+        help.textContent = "Selecciona una o varias opciones.";
+        wrapper.appendChild(help);
+      }
+
+      return wrapper;
+    }
+
+    function getQuestionValue(q) {
+      const el = document.getElementById(q.id);
+      if (!el) return null;
+      if (q.type === "multiselect") return Array.from(el.selectedOptions).map(opt => opt.value);
+      return el.value;
+    }
+
+    function getSelectedOption(q) {
+      const value = getQuestionValue(q);
+      if (q.type === "multiselect") return null;
+      return q.options.find(opt => opt.value === value) || null;
+    }
+
+    function getExclusionReasons() {
+      const reasons = [];
+      QUESTIONS.forEach(q => {
+        if (!q.excludes) return;
+        const value = getQuestionValue(q);
+        if (q.excludes.includes(value)) {
+          const opt = getSelectedOption(q);
+          reasons.push({
+            id: q.id,
+            question: q.label,
+            value: opt ? opt.label : value,
+            reason: opt && opt.reason ? opt.reason : "Esta respuesta impide la conformidad formal como REA."
+          });
+        }
+      });
+      return reasons;
+    }
+
+    function getReviewReasons() {
+      const reasons = [];
+      QUESTIONS.forEach(q => {
+        if (!q.requiresReview) return;
+        const value = getQuestionValue(q);
+        if (q.requiresReview.includes(value)) {
+          const opt = getSelectedOption(q);
+          reasons.push({
+            id: q.id,
+            question: q.label,
+            value: opt ? opt.label : value,
+            reason: opt && opt.reason ? opt.reason : "Esta respuesta requiere revisión manual antes de certificar la conformidad REA."
+          });
+        }
+      });
+      return reasons;
+    }
+
+
+    function setSelectValue(id, value) {
+      const el = document.getElementById(id);
+      if (el && el.value !== value) {
+        el.value = value;
+      }
+    }
+
+    function selectedLabel(questionId) {
+      const question = QUESTIONS.find(q => q.id === questionId);
+      if (!question) return "";
+      const selected = getSelectedOption(question);
+      return selected ? selected.label : "";
+    }
+
+    function applyConsistencyRules() {
+      const issues = [];
+
+      const license = document.getElementById("q_licencia").value;
+      const dataRequirement = document.getElementById("q_datos").value;
+      const download = document.getElementById("q_descarga").value;
+      const fiveR = document.getElementById("q_5r_grado").value;
+      const openFormat = document.getElementById("q_formato_abierto").value;
+      const editable = document.getElementById("q_editable").value;
+      const reusableParts = document.getElementById("q_partes").value;
+      const platformIndependence = document.getElementById("q_independencia_plataforma").value;
+
+      const ncLicenses = ["cc_by_nc", "cc_by_nc_sa"];
+      const ndLicenses = ["cc_by_nd", "cc_by_nc_nd"];
+      const closedLicenses = ["todos_derechos", "sin_licencia"];
+      const nonVerifiableLicenses = ["institucional_no_verificable", "educativa_no_verificable", "otra_no_verificable"];
+      const softwareLicenses = ["gplv3", "mit_apache_bsd"];
+      const explicitlyOpenLicenses = ["dominio_publico", "cc0", "cc_by", "cc_by_sa", "gfdl", "institucional_abierta", "educativa_abierta", "otra_abierta"];
+
+      if (dataRequirement === "obligatorio") {
+        issues.push({
+          title: "Registro o datos personales",
+          message: "Exigir registro o recogida de datos personales no excluye automáticamente que el recurso sea REA, pero limita el acceso efectivo. Por eso reduce la puntuación y debe valorarse como una barrera formal."
+        });
+      }
+
+      if (ncLicenses.includes(license)) {
+        if (fiveR === "todas_sin_restriccion" || fiveR === "") {
+          setSelectValue("q_5r_grado", "todas_nc");
+        }
+        issues.push({
+          title: "Licencia NC y 5R",
+          message: "Una licencia con cláusula NC puede permitir adaptación y redistribución, pero no sin restricciones. Por tanto, no debe marcarse como “5R sin restricciones relevantes”. Se ha ajustado a “5R con restricción NC” cuando procedía."
+        });
+      }
+
+      if (ndLicenses.includes(license)) {
+        if (fiveR !== "algunas_nd") {
+          setSelectValue("q_5r_grado", "algunas_nd");
+        }
+        issues.push({
+          title: "Licencia ND y obras derivadas",
+          message: "Una licencia con cláusula ND no permite revisar, adaptar ni remezclar el recurso. Por tanto, no puede considerarse que permite las 5R. Además, en esta versión la cláusula ND es una condición excluyente."
+        });
+      }
+
+      if (closedLicenses.includes(license)) {
+        if (fiveR !== "cerrada") {
+          setSelectValue("q_5r_grado", "cerrada");
+        }
+        issues.push({
+          title: "Licencia cerrada o ausente",
+          message: "Si el recurso tiene todos los derechos reservados o no declara licencia, no puede indicarse que permite las 5R. Se ha ajustado la respuesta sobre 5R a licencia cerrada o ausencia de licencia."
+        });
+      }
+
+      if (nonVerifiableLicenses.includes(license)) {
+        if (fiveR !== "no_determinable") {
+          setSelectValue("q_5r_grado", "no_determinable");
+        }
+        issues.push({
+          title: "Licencia no verificable automáticamente",
+          message: "Las licencias institucionales, educativas o propias solo pueden aceptarse automáticamente si sus términos permiten explícitamente retener, reutilizar, revisar, remezclar y redistribuir. En caso contrario, la herramienta marca el recurso como no verificable."
+        });
+      }
+
+      if (softwareLicenses.includes(license)) {
+        issues.push({
+          title: "Licencia de software",
+          message: "GPLv3, MIT, Apache-2.0 o BSD son licencias adecuadas para software o código. Si el recurso evaluado es un texto, vídeo, presentación u otro material docente no software, conviene usar una licencia de contenidos como CC BY o CC BY-SA."
+        });
+      }
+
+      const currentFiveR = () => document.getElementById("q_5r_grado").value;
+      const fiveRLooksFull = () => ["todas_sin_restriccion", "todas_nc"].includes(currentFiveR());
+
+      if (download === "no" && fiveRLooksFull()) {
+        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
+        issues.push({
+          title: "Ausencia de descarga y 5R",
+          message: "Si el recurso no puede descargarse ni conservarse localmente, el derecho de retener y la reutilización práctica quedan limitados. El recurso puede seguir siendo REA si la licencia es abierta, pero no debería constar como 5R completas."
+        });
+      }
+
+      if (editable === "no" && fiveRLooksFull()) {
+        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
+        issues.push({
+          title: "Recurso no editable y 5R",
+          message: "Que un recurso no sea editable no excluye siempre su condición de REA si la licencia es abierta, pero limita la revisión, adaptación y remezcla efectivas. Por eso no debe constar como 5R completas y se ajusta a 5R con barreras técnicas."
+        });
+      }
+
+      if (openFormat === "no" && fiveRLooksFull()) {
+        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
+        issues.push({
+          title: "Formato cerrado y 5R",
+          message: "Aunque la licencia permita reutilizar el recurso, un formato cerrado limita la reutilización técnica, la edición y la portabilidad. Se ha ajustado la respuesta a 5R con barreras técnicas."
+        });
+      }
+
+      if (platformIndependence === "no" && fiveRLooksFull()) {
+        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
+        issues.push({
+          title: "Dependencia de plataforma y 5R",
+          message: "Si el recurso depende de una plataforma concreta, pueden quedar limitadas la conservación local, la portabilidad y la reutilización efectiva. El recurso puede seguir siendo REA si la licencia es abierta, pero no debería constar como 5R completas."
+        });
+      }
+
+      if (platformIndependence === "parcial") {
+        issues.push({
+          title: "Dependencia parcial de plataforma",
+          message: "La dependencia parcial de una plataforma no excluye la condición de REA, pero puede limitar la portabilidad, la preservación y la reutilización en otros entornos."
+        });
+      }
+
+      if (openFormat === "no" && editable === "si") {
+        issues.push({
+          title: "Formato cerrado y editabilidad",
+          message: "Un recurso en formato cerrado puede ser editable solo mediante herramientas concretas o propietarias. Revisa si debería marcarse como “Parcialmente” o si existen archivos fuente abiertos."
+        });
+      }
+
+      if (editable === "no" && reusableParts === "si") {
+        issues.push({
+          title: "Partes reutilizables sin editabilidad",
+          message: "Un recurso puede estar dividido en partes reutilizables, pero si no es editable, su adaptación, revisión y remezcla quedan limitadas. Revisa si la reutilización se refiere solo al uso de fragmentos sin modificación."
+        });
+      }
+
+      if (openFormat === "no" && editable === "no") {
+        issues.push({
+          title: "Baja apertura técnica",
+          message: "La combinación de formato no abierto y ausencia de editabilidad limita gravemente la reutilización efectiva. No siempre excluye la condición de REA si la licencia es abierta, pero debe reflejarse como una debilidad formal importante."
+        });
+      }
+
+      if (explicitlyOpenLicenses.includes(license) && currentFiveR() === "todas_nc") {
+        issues.push({
+          title: "Posible incoherencia NC",
+          message: "La licencia seleccionada no incluye NC, pero se ha marcado 5R con restricción NC. Revisa si existe una restricción externa o si debería seleccionarse “5R sin restricciones relevantes”."
+        });
+      }
+
+      return issues;
+    }
+
+    function showCoherenceModal(issues) {
+      if (!issues.length) {
+        state.lastCoherenceKey = "";
+        return;
+      }
+
+      const key = issues.map(item => `${item.title}:${item.message}`).join("|");
+      if (key === state.lastCoherenceKey) return;
+      state.lastCoherenceKey = key;
+
+      const content = document.getElementById("modalCoherenceContent");
+      content.innerHTML = `
+        <ul class="list-group">
+          ${issues.map(item => `
+            <li class="list-group-item">
+              <strong>${item.title}</strong><br>
+              ${item.message}
+            </li>`).join("")}
+        </ul>
+      `;
+
+      const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("coherenceModal"));
+      modal.show();
+    }
+
+    function checkImmediateWarnings() {
+      const coherenceIssues = applyConsistencyRules();
+      const exclusions = getExclusionReasons();
+      const reviewReasons = getReviewReasons();
+      const live = document.getElementById("liveAlert");
+
+      if (exclusions.length > 0) {
+        live.innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            <h2 class="h6 alert-heading">Respuesta excluyente detectada</h2>
+            <p class="mb-0">El recurso no alcanzará conformidad automática mientras esta condición se mantenga.</p>
+          </div>
+        `;
+        showExclusionModal(exclusions);
+        if (coherenceIssues.length > 0) {
+          showCoherenceModal(coherenceIssues);
+        }
+        updateQuickStatus(null, exclusions, reviewReasons);
+        return;
+      }
+
+      if (reviewReasons.length > 0) {
+        live.innerHTML = `
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Revisión manual requerida:</strong> la licencia o las 5R no pueden verificarse automáticamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        `;
+        showCoherenceModal(reviewReasons.map(item => ({ title: "Revisión manual requerida", message: `<strong>${item.question}</strong> ${item.value}. ${item.reason}` })));
+        updateQuickStatus(null, [], reviewReasons);
+        return;
+      }
+
+      const license = document.getElementById("q_licencia").value;
+      const fiveR = document.getElementById("q_5r_grado").value;
+      const hasNcWarning = license === "cc_by_nc" || license === "cc_by_nc_sa" || fiveR === "todas_nc";
+      const hasDataWarning = document.getElementById("q_datos").value === "obligatorio";
+
+      if (coherenceIssues.length > 0) {
+        live.innerHTML = `
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Aviso de coherencia:</strong> hay respuestas que conviene revisar para evitar una evaluación contradictoria.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        `;
+        showCoherenceModal(coherenceIssues);
+      } else if (hasNcWarning) {
+        live.innerHTML = `
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Aviso:</strong> la cláusula NC no excluye la conformidad REA, pero limita algunos usos y reduce la puntuación.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        `;
+      } else if (hasDataWarning) {
+        live.innerHTML = `
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Aviso:</strong> exigir registro o datos personales no excluye la condición de REA, pero limita el acceso efectivo y reduce la puntuación.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        `;
+      } else {
+        live.innerHTML = "";
+      }
+
+      updateQuickStatus(null, [], []);
+      state.lastExclusionKey = "";
+      state.lastCoherenceKey = "";
+    }
+
+    function showExclusionModal(exclusions) {
+      const key = exclusions.map(item => `${item.id}:${item.value}`).join("|");
+      if (key === state.lastExclusionKey) return;
+      state.lastExclusionKey = key;
+
+      const content = document.getElementById("modalExclusionContent");
+      content.innerHTML = `
+        <ul class="list-group">
+          ${exclusions.map(item => `
+            <li class="list-group-item">
+              <strong>${item.question}</strong><br>
+              Respuesta: ${item.value}<br>
+              ${item.reason}
+            </li>`).join("")}
+        </ul>
+      `;
+
+      const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("exclusionModal"));
+      modal.show();
+    }
+
+    function calculateScores() {
+      const categoryScores = {};
+      CATEGORIES.forEach(cat => categoryScores[cat.id] = {
+        title: cat.title,
+        weight: cat.weight,
+        rawScore: 0,
+        rawMax: 0,
+        weightedScore: 0,
+        percent: 0
+      });
+
+      QUESTIONS.forEach(q => {
+        let score = 0;
+        if (q.type === "multiselect") {
+          const values = getQuestionValue(q);
+          q.options.forEach(opt => {
+            if (values.includes(opt.value)) score += opt.score;
+          });
+        } else {
+          const selected = getSelectedOption(q);
+          score = selected ? selected.score : 0;
+        }
+        categoryScores[q.category].rawScore += score;
+        categoryScores[q.category].rawMax += q.max;
+      });
+
+      Object.values(categoryScores).forEach(item => {
+        item.percent = item.rawMax ? item.rawScore / item.rawMax : 0;
+        item.weightedScore = item.percent * item.weight;
+      });
+
+      const weightedTotal = Object.values(categoryScores).reduce((sum, item) => sum + item.weightedScore, 0);
+      const normalized = Math.round(weightedTotal);
+      const exclusions = getExclusionReasons();
+      const reviewReasons = getReviewReasons();
+      const blocked = exclusions.length > 0 || reviewReasons.length > 0;
+
+      return {
+        categoryScores,
+        weightedTotal,
+        normalized,
+        officialScore: blocked ? null : normalized,
+        excluded: exclusions.length > 0,
+        reviewRequired: reviewReasons.length > 0,
+        exclusions,
+        reviewReasons,
+        level: getLevel(normalized, exclusions.length > 0, reviewReasons.length > 0)
+      };
+    }
+
+    function getLevel(score, excluded, reviewRequired) {
+      if (excluded) return {
+        label: "No REA",
+        stars: 0,
+        badge: "text-bg-danger",
+        message: "El recurso presenta una condición excluyente. La puntuación global no se aplica porque no supera el filtro mínimo de conformidad REA."
+      };
+      if (reviewRequired) return {
+        label: "No verificable como REA",
+        stars: 0,
+        badge: "text-bg-warning",
+        message: "La herramienta no puede certificar automáticamente la conformidad REA porque la licencia o el ejercicio de las 5R requieren revisión manual."
+      };
+      if (score >= 85) return { label: "Conformidad alta", stars: 5, badge: "text-bg-success", message: "El recurso presenta un grado alto de conformidad formal." };
+      if (score >= 70) return { label: "Conformidad notable", stars: 4, badge: "text-bg-dark", message: "El recurso presenta una conformidad formal sólida, con aspectos mejorables." };
+      if (score >= 55) return { label: "Conformidad básica", stars: 3, badge: "text-bg-warning", message: "El recurso cumple parcialmente las condiciones formales." };
+      if (score >= 40) return { label: "Conformidad parcial", stars: 2, badge: "text-bg-warning", message: "El recurso presenta un cumplimiento limitado." };
+      return { label: "Conformidad baja", stars: 1, badge: "text-bg-secondary", message: "El recurso presenta un cumplimiento formal bajo." };
+    }
+
+    function starsText(stars) {
+      return "★★★★★".slice(0, stars) + "☆☆☆☆☆".slice(0, 5 - stars);
+    }
+
+    function progressWidthClass(value) {
+      const numericValue = Number(value);
+      const safeValue = Number.isFinite(numericValue) ? numericValue : 0;
+      const roundedValue = Math.max(0, Math.min(100, Math.round(safeValue)));
+      return `progress-width-${roundedValue}`;
+    }
+
+    function renderResults(result) {
+      const rows = Object.values(result.categoryScores).map(item => {
+        const pct = Math.round(item.percent * 100);
+        const weighted = item.weightedScore.toFixed(1).replace(".", ",");
+        return `
+          <tr>
+            <th scope="row">${item.title}</th>
+            <td>${weighted} / ${item.weight}</td>
+            <td>${pct}%</td>
+            <td>
+              <div class="progress" role="progressbar" aria-label="${item.title}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-dark ${progressWidthClass(pct)}">${pct}%</div>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      const exclusionBlock = result.excluded ? `
+        <div class="alert alert-danger">
+          <h3 class="h6">Condiciones excluyentes</h3>
+          <ul class="mb-0">
+            ${result.exclusions.map(item => `<li><strong>${item.question}</strong> ${item.value}. ${item.reason}</li>`).join("")}
+          </ul>
+        </div>
+      ` : "";
+
+      const reviewBlock = result.reviewRequired ? `
+        <div class="alert alert-warning">
+          <h3 class="h6">Revisión manual requerida</h3>
+          <ul class="mb-0">
+            ${result.reviewReasons.map(item => `<li><strong>${item.question}</strong> ${item.value}. ${item.reason}</li>`).join("")}
+          </ul>
+        </div>
+      ` : "";
+
+      const scoreText = (result.excluded || result.reviewRequired) ? "No aplicable" : `${result.officialScore} / 100`;
+      const diagnosticText = (result.excluded || result.reviewRequired) ? `<p class="text-body-secondary">Puntuación diagnóstica orientativa: ${result.normalized} / 100. No se usa como resultado oficial porque existe una condición excluyente o una licencia no verificable automáticamente.</p>` : "";
+
+      document.getElementById("resultsBox").innerHTML = `
+        <div class="card-body">
+          <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+            <span class="badge ${result.level.badge} fs-6">${result.level.label}</span>
+            <span class="fs-3" aria-label="${result.level.stars} de 5 estrellas">${starsText(result.level.stars)}</span>
+            <span class="fw-bold fs-4">${scoreText}</span>
+          </div>
+          <p>${result.level.message}</p>
+          ${diagnosticText}
+          ${exclusionBlock}
+          ${reviewBlock}
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Puntuación ponderada</th>
+                  <th scope="col">Cumplimiento interno</th>
+                  <th scope="col">Progreso</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      updateQuickStatus(result, result.exclusions, result.reviewReasons);
+    }
+
+    function updateQuickStatus(result, exclusions, reviewReasons) {
+      const box = document.getElementById("quickStatus");
+      if (exclusions && exclusions.length > 0 && !result) {
+        box.innerHTML = `
+          <span class="badge text-bg-danger mb-2">No REA</span>
+          <p class="mb-0">Hay una condición excluyente pendiente de corregir.</p>
+        `;
+        return;
+      }
+
+      if (reviewReasons && reviewReasons.length > 0 && !result) {
+        box.innerHTML = `
+          <span class="badge text-bg-warning mb-2">No verificable</span>
+          <p class="mb-0">Hay una licencia o condición que requiere revisión manual.</p>
+        `;
+        return;
+      }
+
+      if (!result) {
+        box.innerHTML = `<p class="text-body-secondary mb-0">Formulario en edición. Pulsa “Validar recurso” para calcular el resultado.</p>`;
+        return;
+      }
+
+      const score = (result.excluded || result.reviewRequired) ? "No aplicable" : `${result.officialScore}/100`;
+      box.innerHTML = `
+        <span class="badge ${result.level.badge} mb-2">${result.level.label}</span>
+        <p class="display-6 fw-bold mb-0">${score}</p>
+        <p class="fs-4 mb-0">${starsText(result.level.stars)}</p>
+      `;
+    }
+
+    function generateSvg(result) {
+      const score = (result.excluded || result.reviewRequired) ? "No aplicable" : `${result.officialScore}/100`;
+      const stars = starsText(result.level.stars);
+      const date = new Date().toLocaleDateString("es-ES");
+      const fill = result.excluded
+        ? "#dc3545"
+        : (result.reviewRequired
+          ? "#ffc107"
+          : (result.normalized >= 85
+            ? "#198754"
+            : (result.normalized >= 70
+              ? "#212529"
+              : (result.normalized >= 55 ? "#ffc107" : "#6c757d"))));
+      const textColor = (result.normalized >= 55 || result.reviewRequired) && !result.excluded ? "#212529" : "#ffffff";
+
+      return `<svg class="img-fluid" xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">Puntuación CREA</title>
+  <desc id="desc">Resultado: ${escapeXml(result.level.label)}, puntuación ${escapeXml(score)}, ${escapeXml(stars)}, fecha de evaluación ${escapeXml(date)}, versión ${escapeXml(APP_VERSION)}.</desc>
+  <rect x="20" y="20" width="760" height="380" rx="32" fill="#f8f9fa" stroke="#212529" stroke-width="8"/>
+  <rect x="40" y="40" width="720" height="92" rx="24" fill="${fill}"/>
+  <text x="400" y="100" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="38" font-weight="700" fill="${textColor}">Puntuación CREA</text>
+  <text x="400" y="185" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="40" font-weight="700" fill="#212529">${escapeXml(result.level.label)}</text>
+  <text x="400" y="250" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="58" font-weight="700" fill="#212529">Puntuación: ${escapeXml(score)}</text>
+  <text x="400" y="312" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="52" fill="#212529">${escapeXml(stars)}</text>
+  <text x="400" y="357" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="22" fill="#6c757d">Fecha de evaluación: ${escapeXml(date)}</text>
+  <text x="400" y="386" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="22" fill="#6c757d">Versión de la herramienta: ${escapeXml(APP_VERSION)}</text>
+</svg>`;
+    }
+
+    function renderBadge(result) {
+      const svg = generateSvg(result);
+      state.lastSvg = svg;
+      document.getElementById("badgePreview").innerHTML = svg;
+
+      const dataUrl = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
+      const scoreText = (result.excluded || result.reviewRequired) ? "puntuación no aplicable" : `${result.officialScore} de 100`;
+      document.getElementById("embedCode").value = `<img src="${dataUrl}" alt="CREA · Certificación: ${result.level.label}, ${scoreText}" width="400">`;
+
+      document.getElementById("btnDownloadSvg").disabled = false;
+      document.getElementById("btnDownloadPng").disabled = false;
+      document.getElementById("btnCopyEmbed").disabled = false;
+    }
+
+    function validate() {
+      const result = calculateScores();
+      state.lastResult = result;
+      renderResults(result);
+      renderBadge(result);
+      checkImmediateWarnings();
+      document.getElementById("resultado").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function download(filename, content, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadSvg() {
+      if (!state.lastSvg) return;
+      download("crea-certificacion.svg", state.lastSvg, "image/svg+xml;charset=utf-8");
+    }
+
+    function downloadPng() {
+      if (!state.lastSvg) return;
+      const svgBlob = new Blob([state.lastSvg], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = 800;
+        canvas.height = 420;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+        const a = document.createElement("a");
+        a.href = canvas.toDataURL("image/png");
+        a.download = "crea-certificacion.png";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+      img.src = url;
+    }
+
+    function copyEmbed() {
+      const textarea = document.getElementById("embedCode");
+      textarea.select();
+      textarea.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        document.getElementById("liveAlert").innerHTML = `
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Código embed copiado al portapapeles.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        `;
+      });
+    }
+
+    function resetForm() {
+      document.getElementById("oerForm").reset();
+      document.getElementById("liveAlert").innerHTML = "";
+      document.getElementById("quickStatus").innerHTML = `<p class="text-body-secondary mb-0">Todavía no se ha validado el recurso.</p>`;
+      document.getElementById("resultsBox").innerHTML = `<div class="card-body"><p class="text-body-secondary mb-0">Completa el formulario y pulsa “Validar recurso”.</p></div>`;
+      document.getElementById("badgePreview").innerHTML = `<p class="text-body-secondary mb-0">El sello aparecerá después de validar.</p>`;
+      document.getElementById("embedCode").value = "";
+      document.getElementById("btnDownloadSvg").disabled = true;
+      document.getElementById("btnDownloadPng").disabled = true;
+      document.getElementById("btnCopyEmbed").disabled = true;
+      state.lastResult = null;
+      state.lastSvg = "";
+      state.lastExclusionKey = "";
+      state.lastCoherenceKey = "";
+    }
+
+    function escapeXml(str) {
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderQuestions();
+      document.getElementById("btnValidate").addEventListener("click", validate);
+      document.getElementById("btnReset").addEventListener("click", resetForm);
+      document.getElementById("btnDownloadSvg").addEventListener("click", downloadSvg);
+      document.getElementById("btnDownloadPng").addEventListener("click", downloadPng);
+      document.getElementById("btnCopyEmbed").addEventListener("click", copyEmbed);
+    });
+  </script>
+</body>
+</html>
