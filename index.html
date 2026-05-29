@@ -45,6 +45,7 @@
           <li class="nav-item"><a class="nav-link" href="#sello">Sello</a></li>
           <li class="nav-item"><a class="nav-link" href="#pesos">Pesos</a></li>
           <li class="nav-item"><a class="nav-link" href="#reglas">Reglas</a></li>
+          <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
         </ul>
       </div>
     </div>
@@ -158,8 +159,8 @@
               <tbody>
                 <tr><td>Identificación del recurso</td><td>10 %</td></tr>
                 <tr><td>Acceso y licencia de uso</td><td>25 %</td></tr>
-                <tr><td>Formato y reutilización</td><td>20 %</td></tr>
-                <tr><td>Metadatos</td><td>15 %</td></tr>
+                <tr><td>Formato y reutilización</td><td>25 %</td></tr>
+                <tr><td>Metadatos</td><td>10 %</td></tr>
                 <tr><td>Accesibilidad</td><td>20 %</td></tr>
                 <tr><td>Publicación y preservación</td><td>10 %</td></tr>
               </tbody>
@@ -260,8 +261,8 @@
     const CATEGORIES = [
       { id: "identificacion", title: "Identificación del recurso", weight: 10 },
       { id: "accesoLicencia", title: "Acceso y licencia de uso", weight: 25 },
-      { id: "formato", title: "Formato y reutilización", weight: 20 },
-      { id: "metadatos", title: "Metadatos", weight: 15 },
+      { id: "formato", title: "Formato y reutilización", weight: 25 },
+      { id: "metadatos", title: "Metadatos", weight: 10 },
       { id: "accesibilidad", title: "Accesibilidad", weight: 20 },
       { id: "publicacion", title: "Publicación y preservación", weight: 10 }
     ];
@@ -461,6 +462,48 @@
         label: "¿El recurso es compatible con ayudas técnicas, incluidas las que permiten personalizar los estilos del documento?",
         max: 4,
         options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["no_comprobado", "No comprobado", 0]]
+      },
+      {
+        id: "q_texto_200", category: "accesibilidad",
+        label: "¿El texto puede ampliarse hasta el 200 % sin pérdida de contenido o funcionalidad?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_espaciado_texto", category: "accesibilidad",
+        label: "¿El recurso permite ajustar interlineado, espaciado entre párrafos, letras y palabras sin pérdida de contenido?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_teclado", category: "accesibilidad",
+        label: "¿Todas las funciones del recurso pueden usarse con teclado?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_tiempo_ajustable", category: "accesibilidad",
+        label: "Si hay límites de tiempo, ¿pueden desactivarse, ajustarse o ampliarse?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_abreviaturas", category: "accesibilidad",
+        label: "¿Se explica el significado de las abreviaturas utilizadas?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_errores_formularios", category: "accesibilidad",
+        label: "Si hay formularios, ¿los errores se identifican y describen con texto?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
+      },
+      {
+        id: "q_destellos", category: "accesibilidad",
+        label: "¿El recurso evita destellos o efectos visuales que puedan provocar convulsiones o reacciones físicas?",
+        max: 4,
+        options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
       },
 
       {

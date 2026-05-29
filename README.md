@@ -31,8 +31,8 @@ La matriz se organiza en seis categorías:
 |---|---:|
 | Identificación del recurso | 10 % |
 | Acceso y licencia de uso | 25 % |
-| Formato y reutilización | 20 % |
-| Metadatos | 15 % |
+| Formato y reutilización | 25 % |
+| Metadatos | 10 % |
 | Accesibilidad | 20 % |
 | Publicación y preservación | 10 % |
 
