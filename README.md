@@ -1,6 +1,6 @@
-# MAREA · Conformidad de Recursos Educativos Abiertos
+# MAREA · Matriz de Análisis de Recursos Educativos Abiertos
 
-**MAREA · Conformidad de Recursos Educativos Abiertos** es una herramienta web para evaluar la conformidad formal de recursos educativos abiertos (REA/OER). Su objetivo es ayudar a revisar si un recurso cumple condiciones básicas de apertura, reutilización, accesibilidad, descripción y preservación sin entrar en la valoración disciplinar, científica o pedagógica profunda del contenido.
+**MAREA · Matriz de Análisis de Recursos Educativos Abiertos** es una herramienta web para evaluar la conformidad formal de recursos educativos abiertos (REA/OER). Su objetivo es ayudar a revisar si un recurso cumple condiciones básicas de apertura, reutilización, accesibilidad, descripción y preservación sin entrar en la valoración disciplinar, científica o pedagógica profunda del contenido.
 
 ## Versión
 
