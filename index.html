@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MAREA - Matriz de Análisis de Recursos Educativos Abiertos</title>
-  <meta name="description" content="">
+  <meta name="description" content="MAREA - Matriz de Análisis de Recursos Educativos Abiertos es una herramienta de verificación formal de recursos educativos abiertos">
+    <meta name="DC.creator" content="Rubén Alcaraz Martínez">
   <meta name="DC.creator" content="Gema Santos Hermosa">
-  <meta name="DC.creator" content="Rubén Alcaraz Martínez">
   <meta name="DC.publisher" content="Universitat de Barcelona">
-  <meta name="DC.description" content="Herramienta web para evaluar la conformidad formal de recursos educativos abiertos mediante criterios sobre licencia, acceso, formato, editabilidad, metadatos, accesibilidad, publicación y preservación.">
+  <meta name="DC.description" content="MAREA - Matriz de Análisis de Recursos Educativos Abiertos es una herramienta de verificación formal de recursos educativos abiertos">
   <meta name="DC.subject" content="recursos educativos abiertos">
   <meta name="DC.subject" content="REA">
   <meta name="DC.subject" content="OER">
@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-</head>
+<script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=xC4S1SyQ4ONMVReEujwZ1tP1xYN8h8-x327QJ4kNAFVTnyPXKze681ZThll-JDse7VM3bsj167sYtEXQRrJljE5PBnKRl-1r6M-fIfT21qH8UpXQ9GH5jAEIP6nRpe_iJvt6VXq2k3gcY7ZODW6JnPDzcm2XKxyNg5rQscMRjqVNQM-FDPoR8Ze9sSvPkVDnL2a-5kDufcivPFbqaDIct3cKRIHKwYc6X1ehHntNj61nLZl04nyZsdExlrdVQft29vc98E6CzNH55hUF9Ry9eBJI3LnmpoiNq6bTanjxrvmHptS4_4AjMd8mupr3r8QNrKhp0SPtfOvHHPFfL7z9-g" charset="UTF-8"></script></head>
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
     <div class="container">
@@ -157,12 +157,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Identificación del recurso</td><td>10 %</td></tr>
-                <tr><td>Acceso y licencia de uso</td><td>25 %</td></tr>
-                <tr><td>Formato y reutilización</td><td>25 %</td></tr>
-                <tr><td>Metadatos</td><td>10 %</td></tr>
-                <tr><td>Accesibilidad</td><td>20 %</td></tr>
-                <tr><td>Publicación y preservación</td><td>10 %</td></tr>
+                <tr><td>Identificación del recurso</td><td>5 %</td></tr>
+                <tr><td>Acceso y licencia de uso</td><td>30 %</td></tr>
+                <tr><td>Formato y reutilización</td><td>30 %</td></tr>
+                <tr><td>Metadatos</td><td>5 %</td></tr>
+                <tr><td>Accesibilidad</td><td>25 %</td></tr>
+                <tr><td>Publicación y preservación</td><td>5 %</td></tr>
               </tbody>
             </table>
           </div>
@@ -240,7 +240,7 @@
 
   <footer class="border-top py-4 bg-body-tertiary">
     <div class="container">
-      <p class="mb-1 text-body-secondary">Idea: Rubén Alcaraz Martínez y Gema Santos Hermosa, Universitat de Barcelona, 2026- .</p>
+      <p class="mb-1 text-body-secondary">Idea y diseño: Rubén Alcaraz Martínez y Gema Santos Hermosa, Universitat de Barcelona, 2026- .</p>
       <p class="mb-1 text-body-secondary">Desarrollo: Rubén Alcaraz Martínez.</p>
       <p class="mb-3 text-body-secondary">Licencia: código fuente bajo GNU GPLv3; modelo, textos y documentación bajo Creative Commons Reconocimiento 4.0 Internacional (CC BY 4.0).</p>
       <div class="d-flex flex-wrap gap-3 align-items-center">
@@ -259,12 +259,12 @@
     const APP_VERSION = "1.0.0-beta.5";
 
     const CATEGORIES = [
-      { id: "identificacion", title: "Identificación del recurso", weight: 10 },
-      { id: "accesoLicencia", title: "Acceso y licencia de uso", weight: 25 },
-      { id: "formato", title: "Formato y reutilización", weight: 25 },
-      { id: "metadatos", title: "Metadatos", weight: 10 },
-      { id: "accesibilidad", title: "Accesibilidad", weight: 20 },
-      { id: "publicacion", title: "Publicación y preservación", weight: 10 }
+      { id: "identificacion", title: "Identificación del recurso", weight: 5 },
+      { id: "accesoLicencia", title: "Acceso y licencia de uso", weight: 30 },
+      { id: "formato", title: "Formato y reutilización", weight: 30 },
+      { id: "metadatos", title: "Metadatos", weight: 5 },
+      { id: "accesibilidad", title: "Accesibilidad", weight: 25 },
+      { id: "publicacion", title: "Publicación y preservación", weight: 5 }
     ];
 
     const QUESTIONS = [
@@ -311,7 +311,7 @@
       },
       {
         id: "q_datos", category: "accesoLicencia",
-        label: "¿El recurso exige registro o recogida de datos personales?",
+        label: "¿La plataforma donde está publicado el recurso exige registro o recogida de datos personales?",
         max: 3,
         options: [["", "Selecciona una opción", 0], ["no", "No", 3], ["opcional", "Sí, opcional", 2], ["obligatorio", "Sí, obligatorio", 0]]
       },
@@ -353,7 +353,7 @@
       },
       {
         id: "q_licencia_visible", category: "accesoLicencia",
-        label: "¿La licencia está indicada de forma visible junto al recurso?",
+        label: "¿La licencia está incrustada en el recurso o en una zona claramente visible (portada, página de créditos, etc.)?",
         max: 3,
         options: [["", "Selecciona una opción", 0], ["si", "Sí", 3], ["parcial", "Parcialmente", 1], ["no", "No", 0]]
       },
@@ -361,16 +361,14 @@
       {
         id: "q_5r_grado", category: "accesoLicencia",
         label: "¿Qué grado de ejercicio de las 5R permite el recurso? (retener, reutilizar, revisar, remezclar y redistribuir)",
-        max: 8, excludes: ["algunas_nd", "no", "cerrada", "drm"], requiresReview: ["no_determinable"],
+        max: 8, excludes: ["algunas_nd", "cerrada", "drm"], requiresReview: ["no_determinable"],
         options: [
           ["", "Selecciona una opción", 0],
           ["todas_sin_restriccion", "Permite las 5R sin restricciones relevantes", 8],
           ["todas_nc", "Permite las 5R con restricción NC", 5],
-          ["algunas_barreras_tecnicas", "Permite legalmente las 5R, pero existen barreras técnicas", 3],
           ["algunas_nd", "Permite algunas 5R, pero no revisión/remezcla por ND", 0, "La cláusula ND impide revisar, adaptar y remezclar el recurso. En esta versión es una condición excluyente."],
-          ["cerrada", "No las permite por licencia cerrada o ausencia de licencia", 0, "Sin licencia abierta o con todos los derechos reservados no puede verificarse el ejercicio de las 5R."],
+          ["cerrada", "No permite las 5R (por cualquier motivo, principalmente, licencia cerrada o ausencia de licencia)", 0, "Si no permite las 5R, especialmente por licencia cerrada o ausencia de licencia, el recurso no alcanza conformidad formal como REA."],
           ["drm", "No las permite por DRM o bloqueo técnico severo", 0, "Las restricciones técnicas severas impiden ejercer derechos de reutilización aunque la licencia sea abierta."],
-          ["no", "No permite las 5R", 0, "Si no permite las 5R, el recurso no alcanza conformidad formal como REA."],
           ["no_determinable", "No se puede determinar", 0]
         ]
       },
@@ -414,10 +412,11 @@
         id: "q_metadatos_educativos", category: "metadatos",
         type: "multiselect",
         label: "¿Qué metadatos educativos incluye?",
-        max: 7,
+        max: 8,
         options: [
           ["nivel", "Nivel", 1], ["destinatarios", "Destinatarios", 1], ["objetivos", "Objetivos", 1],
-          ["competencias", "Competencias", 1], ["tiempo", "Tiempo estimado", 1], ["contexto", "Contexto de uso", 1], ["requisitos", "Requisitos previos", 1]
+          ["competencias", "Competencias", 1], ["tiempo", "Tiempo estimado", 1], ["contexto", "Contexto de uso", 1], ["requisitos", "Requisitos previos", 1],
+          ["otros_metadatos_educativos", "Otros metadatos educativos", 1]
         ]
       },
       {
@@ -459,7 +458,7 @@
       },
       {
         id: "q_ayudas", category: "accesibilidad",
-        label: "¿El recurso es compatible con ayudas técnicas, incluidas las que permiten personalizar los estilos del documento?",
+        label: "¿El recurso es compatible con ayudas técnicas (lectores de pantalla, magnificadores de texto, etc.), incluidas las que permiten personalizar los estilos del documento?",
         max: 4,
         options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["parcial", "Parcialmente", 2], ["no", "No", 0], ["no_comprobado", "No comprobado", 0]]
       },
@@ -489,13 +488,13 @@
       },
       {
         id: "q_abreviaturas", category: "accesibilidad",
-        label: "¿Se explica el significado de las abreviaturas utilizadas?",
+        label: "¿Se explica el significado de las abreviaturas utilizadas dentro del texto?",
         max: 4,
         options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
       },
       {
         id: "q_errores_formularios", category: "accesibilidad",
-        label: "Si hay formularios, ¿los errores se identifican y describen con texto?",
+        label: "Si hay formularios incrustados como parte del recurso, ¿los errores se identifican y describen con texto?",
         max: 4,
         options: [["", "Selecciona una opción", 0], ["si", "Sí", 4], ["no", "No", 0], ["na", "No aplica", 4]]
       },
@@ -615,6 +614,25 @@
       select.addEventListener("change", () => checkImmediateWarnings(q));
       wrapper.appendChild(select);
 
+      if (q.id === "q_formato_abierto") {
+        const help = document.createElement("div");
+        help.className = "form-text";
+        help.innerHTML = `
+          <a class="link-secondary" data-bs-toggle="collapse" href="#formatos-abiertos-ejemplos" role="button" aria-expanded="false" aria-controls="formatos-abiertos-ejemplos">Ver lista de ejemplos de formatos para cada caso</a>
+          <div class="collapse mt-2" id="formatos-abiertos-ejemplos">
+            <div class="border rounded p-3 bg-body-tertiary">
+              <p class="fw-semibold mb-2">Sí: formatos abiertos, interoperables y documentados</p>
+              <p class="mb-2">HTML, XHTML, XML, Markdown, TXT, CSV, TSV, JSON, JSON-LD, RDF/XML, Turtle, N-Triples, RDFa, YAML, ODT, ODS, ODP, ODG, EPUB sin DRM, LaTeX, BibTeX, RIS, SVG, PNG, JPEG/JFIF, WebP, TIFF, GeoJSON, GML, GPX, KML, NetCDF, HDF5, WAV, FLAC, Ogg Vorbis, Opus, Ogg Theora, WebM, Matroska, WebVTT, SRT, TTML, IMS Common Cartridge, IMS QTI, H5P exportable y paquetes ZIP que contengan archivos abiertos.</p>
+              <p class="fw-semibold mb-2">Parcialmente: formatos estandarizados o ampliamente interoperables, pero con límites de edición, dependencia de software o pérdida de estructura</p>
+              <p class="mb-2">PDF, PDF/A, DOCX, XLSX, PPTX, RTF, MP3, MP4/H.264, AAC, MOV, paquetes SCORM, presentaciones o documentos exportados desde plataformas, imágenes rasterizadas de materiales textuales, copias escaneadas con OCR, archivos comprimidos con mezcla de formatos abiertos y cerrados, y recursos que ofrecen un formato abierto solo como copia secundaria.</p>
+              <p class="fw-semibold mb-2">No: formatos cerrados, bloqueados o dependientes de una aplicación o plataforma concreta</p>
+              <p class="mb-0">INDD, PSD cuando no se acompaña de fuentes abiertas, AI cuando exige software propietario para editar, FLA, SWF, PUB, QXD, CPTX, STORY, NOTEBOOK, FLIPCHART, Pages, Keynote, Numbers cuando no hay exportación abierta, AZW, KFX, libros electrónicos con DRM, ejecutables EXE/APP/APK cerrados, contenidos solo en streaming sin descarga, actividades alojadas únicamente en plataformas sin exportación, documentos protegidos con contraseña o restricciones de copia, y cualquier formato cuyo uso real dependa de una herramienta propietaria o de un servicio cerrado.</p>
+            </div>
+          </div>
+        `;
+        wrapper.appendChild(help);
+      }
+
       if (q.type === "multiselect") {
         const help = document.createElement("div");
         help.className = "form-text";
@@ -694,7 +712,6 @@
 
       const license = document.getElementById("q_licencia").value;
       const dataRequirement = document.getElementById("q_datos").value;
-      const download = document.getElementById("q_descarga").value;
       const fiveR = document.getElementById("q_5r_grado").value;
       const openFormat = document.getElementById("q_formato_abierto").value;
       const editable = document.getElementById("q_editable").value;
@@ -741,7 +758,7 @@
         }
         issues.push({
           title: "Licencia cerrada o ausente",
-          message: "Si el recurso tiene todos los derechos reservados o no declara licencia, no puede indicarse que permite las 5R. Se ha ajustado la respuesta sobre 5R a licencia cerrada o ausencia de licencia."
+          message: "Si el recurso tiene todos los derechos reservados o no declara licencia, no puede indicarse que permite las 5R. Se ha ajustado la respuesta sobre 5R a la opción de no permitir las 5R."
         });
       }
 
@@ -763,39 +780,6 @@
       }
 
       const currentFiveR = () => document.getElementById("q_5r_grado").value;
-      const fiveRLooksFull = () => ["todas_sin_restriccion", "todas_nc"].includes(currentFiveR());
-
-      if (download === "no" && fiveRLooksFull()) {
-        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
-        issues.push({
-          title: "Ausencia de descarga y 5R",
-          message: "Si el recurso no puede descargarse ni conservarse localmente, el derecho de retener y la reutilización práctica quedan limitados. El recurso puede seguir siendo REA si la licencia es abierta, pero no debería constar como 5R completas."
-        });
-      }
-
-      if (editable === "no" && fiveRLooksFull()) {
-        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
-        issues.push({
-          title: "Recurso no editable y 5R",
-          message: "Que un recurso no sea editable no excluye siempre su condición de REA si la licencia es abierta, pero limita la revisión, adaptación y remezcla efectivas. Por eso no debe constar como 5R completas y se ajusta a 5R con barreras técnicas."
-        });
-      }
-
-      if (openFormat === "no" && fiveRLooksFull()) {
-        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
-        issues.push({
-          title: "Formato cerrado y 5R",
-          message: "Aunque la licencia permita reutilizar el recurso, un formato cerrado limita la reutilización técnica, la edición y la portabilidad. Se ha ajustado la respuesta a 5R con barreras técnicas."
-        });
-      }
-
-      if (platformIndependence === "no" && fiveRLooksFull()) {
-        setSelectValue("q_5r_grado", "algunas_barreras_tecnicas");
-        issues.push({
-          title: "Dependencia de plataforma y 5R",
-          message: "Si el recurso depende de una plataforma concreta, pueden quedar limitadas la conservación local, la portabilidad y la reutilización efectiva. El recurso puede seguir siendo REA si la licencia es abierta, pero no debería constar como 5R completas."
-        });
-      }
 
       if (platformIndependence === "parcial") {
         issues.push({

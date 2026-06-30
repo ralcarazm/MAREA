@@ -29,12 +29,12 @@ La matriz se organiza en seis categorías:
 
 | Categoría | Peso |
 |---|---:|
-| Identificación del recurso | 10 % |
-| Acceso y licencia de uso | 25 % |
-| Formato y reutilización | 25 % |
-| Metadatos | 10 % |
-| Accesibilidad | 20 % |
-| Publicación y preservación | 10 % |
+| Identificación del recurso | 5 % |
+| Acceso y licencia de uso | 30 % |
+| Formato y reutilización | 30 % |
+| Metadatos | 5 % |
+| Accesibilidad | 25 % |
+| Publicación y preservación | 5 % |
 
 El peso final no depende del número de preguntas de cada categoría. Cada bloque se normaliza internamente y después se pondera según su peso.
 
@@ -52,7 +52,7 @@ Las condiciones excluyentes principales son:
 - todos los derechos reservados;
 - ausencia de licencia;
 - licencia con cláusula ND;
-- licencia cerrada o ausencia de licencia que impida ejercer las 5R;
+- no permite las 5R (por cualquier motivo, principalmente, licencia cerrada o ausencia de licencia);
 - DRM o restricciones técnicas severas que impidan la reutilización.
 
 En estos casos, la herramienta puede mostrar una puntuación diagnóstica orientativa, pero esa puntuación no se utiliza como certificación.
@@ -89,7 +89,7 @@ La herramienta incluye avisos automáticos para evitar combinaciones incoherente
 - Si el recurso depende de una plataforma concreta, la portabilidad y preservación pueden verse afectadas.
 - Si se selecciona una licencia institucional, educativa o propia no verificable, la herramienta solicita revisión manual.
 
-Cuando procede, la aplicación ajusta automáticamente la respuesta sobre las 5R para reflejar barreras jurídicas o técnicas.
+Cuando procede, la aplicación ajusta automáticamente la respuesta sobre las 5R para reflejar barreras jurídicas.
 
 ## Resultados generados
 
@@ -137,7 +137,7 @@ La herramienta está construida con tecnologías web estándar:
 
 ## Disponibilidad
 
-La herramienta se encuentra disponible en
+La herramienta se encuentra disponible en https://ralcarazm.github.io/MAREA/
 
 ## Limitaciones
 
@@ -154,7 +154,7 @@ Los resultados deben interpretarse como una evaluación formal automatizada y do
 
 ## Créditos
 
-Idea: **Rubén Alcaraz Martínez** y **Gema Santos Hermosa**, Universitat de Barcelona.  
+Idea y diseño: **Rubén Alcaraz Martínez** y **Gema Santos Hermosa**, Universitat de Barcelona.  
 Desarrollo: **Rubén Alcaraz Martínez**.
 
 ## Licencia
