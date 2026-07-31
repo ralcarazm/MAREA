@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MAREA - Matriz de Análisis de Recursos Educativos Abiertos</title>
-  <meta name="description" content="MAREA - Matriz de Análisis de Recursos Educativos Abiertos es una herramienta de verificación formal de recursos educativos abiertos">
+  <title>MaREA - Matriz de Análisis de Recursos Educativos Abiertos</title>
+  <meta name="description" content="MaREA - Matriz de Análisis de Recursos Educativos Abiertos es una herramienta de verificación formal de recursos educativos abiertos">
     <meta name="DC.creator" content="Rubén Alcaraz Martínez">
   <meta name="DC.creator" content="Gema Santos Hermosa">
   <meta name="DC.publisher" content="Universitat de Barcelona">
-  <meta name="DC.description" content="MAREA - Matriz de Análisis de Recursos Educativos Abiertos es una herramienta de verificación formal de recursos educativos abiertos">
+  <meta name="DC.description" content="MaREA - Matriz de Análisis de Recursos Educativos Abiertos es una herramienta de verificación formal de recursos educativos abiertos">
   <meta name="DC.subject" content="recursos educativos abiertos">
   <meta name="DC.subject" content="REA">
   <meta name="DC.subject" content="OER">
@@ -56,7 +56,7 @@
       <div class="row g-4 align-items-center">
         <div class="col-lg-8">
           <span class="badge text-bg-light mb-3">Versión 1.0.0-beta.5</span>
-          <h1 class="display-5 fw-bold">MAREA - Matriz de Análisis de Recursos Educativos Abiertos</h1>
+          <h1 class="display-5 fw-bold">MaREA - Matriz de Análisis de Recursos Educativos Abiertos</h1>
           <p class="lead mb-0">Herramienta de verificación formal de recursos educativos abiertos</p>
         </div>
         <div class="col-lg-4">
@@ -1130,11 +1130,11 @@
       const textColor = (result.normalized >= 55 || result.reviewRequired) && !result.excluded ? "#212529" : "#ffffff";
 
       return `<svg class="img-fluid" xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
-  <title id="title">Puntuación MAREA</title>
+  <title id="title">Puntuación MaREA</title>
   <desc id="desc">Resultado: ${escapeXml(result.level.label)}, puntuación ${escapeXml(score)}, ${escapeXml(stars)}, fecha de evaluación ${escapeXml(date)}, versión ${escapeXml(APP_VERSION)}.</desc>
   <rect x="20" y="20" width="760" height="380" rx="32" fill="#f8f9fa" stroke="#212529" stroke-width="8"/>
   <rect x="40" y="40" width="720" height="92" rx="24" fill="${fill}"/>
-  <text x="400" y="100" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="38" font-weight="700" fill="${textColor}">Puntuación MAREA</text>
+  <text x="400" y="100" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="38" font-weight="700" fill="${textColor}">Puntuación MaREA</text>
   <text x="400" y="185" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="40" font-weight="700" fill="#212529">${escapeXml(result.level.label)}</text>
   <text x="400" y="250" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="58" font-weight="700" fill="#212529">Puntuación: ${escapeXml(score)}</text>
   <text x="400" y="312" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="52" fill="#212529">${escapeXml(stars)}</text>
@@ -1150,7 +1150,7 @@
 
       const dataUrl = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
       const scoreText = (result.excluded || result.reviewRequired) ? "puntuación no aplicable" : `${result.officialScore} de 100`;
-      document.getElementById("embedCode").value = `<img src="${dataUrl}" alt="MAREA · Certificación: ${result.level.label}, ${scoreText}" width="400">`;
+      document.getElementById("embedCode").value = `<img src="${dataUrl}" alt="MaREA · Certificación: ${result.level.label}, ${scoreText}" width="400">`;
 
       document.getElementById("btnDownloadSvg").disabled = false;
       document.getElementById("btnDownloadPng").disabled = false;
@@ -1180,7 +1180,7 @@
 
     function downloadSvg() {
       if (!state.lastSvg) return;
-      download("marea-certificacion.svg", state.lastSvg, "image/svg+xml;charset=utf-8");
+      download("MaREA-certificacion.svg", state.lastSvg, "image/svg+xml;charset=utf-8");
     }
 
     function downloadPng() {
@@ -1197,7 +1197,7 @@
         URL.revokeObjectURL(url);
         const a = document.createElement("a");
         a.href = canvas.toDataURL("image/png");
-        a.download = "marea-certificacion.png";
+        a.download = "MaREA-certificacion.png";
         document.body.appendChild(a);
         a.click();
         a.remove();
